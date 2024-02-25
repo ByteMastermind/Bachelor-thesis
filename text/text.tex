@@ -18,13 +18,15 @@
 %---------------------------------------------------------------
 \section{Background and motivation}
 %---------------------------------------------------------------
-Nowadays, the importance of RFID and NFC technologies has become crucial. People come across these technologies daily, validating their tickets in public transportation, accessing their offices, and paying with a card in a store. But it goes deeper than that.
+Nowadays, the importance of RFID and NFC technologies has become increasingly crucial. People come across these technologies daily, validating their tickets in public transportation, accessing their offices, and paying with a card in a store. However, their significance extends beyond these everyday applications.
 
-For instance, the innovation revolutionized the way businesses operate and interact with their environments. In retail, RFID tags have brought improvements in commodity management, allowing retailers to have a perfect overview of the stack levels in real time and optimize the supply to maximum efficiency. The logistic management benefits from the RFID's ability to track the goods throughout the whole distribution process, reducing delays and getting rid of some of the management errors. In healthcare, NFC devices help with patient identification and medication administration, improving safety, accuracy, and the speed of healthcare processes. \cite{pirrone2012mobile} Similarly, in public transportation the NFC technology is used for ticketing, offering commuters a smart and convenient methods of payment and entry.
+For instance, this innovation revolutionized the way businesses operate and interact with their environments. In retail, RFID tags have brought improvements in commodity management, allowing retailers to have a perfect overview of the stack levels in real time and optimize the supply to maximum efficiency. Logistic management benefits from RFID's ability to track the goods throughout the whole distribution process, reducing delays and eliminating certain management errors. In healthcare, NFC devices help with patient identification and medication administration, improving safety, accuracy, and the speed of healthcare processes. \cite{pirrone2012mobile} Similarly, the NFC technology is used in public transportation for ticketing, offering commuters a smart and convenient methods of payment and entry.
 
-The history of RFID/NFC technologies traces back to the early 20th century, with the development of radio-based communication systems. Over the decades, significant advancements in technology have propelled RFID/NFC into mainstream adoption, with key milestones including the invention of the first RFID tag in the 1970s and the integration of NFC capabilities into mobile devices in the early 2000s. Today, RFID/NFC technologies continue to evolve rapidly, driven by innovations such as enhanced data encryption, extended read ranges, and smaller form factors. The widespread adoption of NFC in smartphones has further accelerated the integration of these technologies into everyday life, enabling contactless payments, access control, and data transfer with a simple tap or wave.
+The history of RFID/NFC technologies can be traced back to World War II. The air forces of several countries were using radar, which was discovered in 1935 by physicist Sir Robert Alexander Watson-Watt, to warn of approaching airplanes. Germans discovered a method of identifying an enemy aircraft from allied aircraft by scanning the difference in the radio signal reflected by the airplane when the airplane rolled. This could be considered one of the earliest instances of passive RFID system in history. Later on, Sir Watson-Watt came up with the first active system, the so-called identification friend or foe system. Brits put an active transmitter on each airplane and when it received signals from the radars on the ground, it started broadcasting a signal back, identifying the airplane as friendly. Over the decades, significant advancements appeared. The first official active rewritable RFID tag was introduced in the 1970s by Mario W. Cardullo. That same year, Charles Walton received a patent for a passive transponder used to unlock doors. U.S. government had also an enormous influence on the development of this technology. Scientists from the Los Alamos National Laboratory developed a system to track nuclear materials in the area. Later, at the request of the Agricultural Department, Los Alamos also developed a system to track cows. Every cow has to be given hormones and medicines when it is ill and it was really hard to keep track of cows so that they do not receive two doses accidentally. \cite{violino2005history} As time went on, RFID and NFC technologies started to be used in more and more industries, as people realized the benefits it provides. These technologies continue to evolve rapidly, driven by innovations such as extended read ranges or enhanced data encryption. The adoption of NFC in smartphones has even further accelerated the integration into everyday life, enabling for example contactless payments or data transfer.
 
-The history of RFID/NFC technologies traces back to World War II. The air forces of several countries were using radar, which was discovered in 1935 by physicist Sir Robert Alexander Watson-Watt, to warn of approaching airplanes. Germans discovered a method of identifying an enemy aircraft from allied aircraft by scanning the difference in the radio signal reflected back by the airplane when the airplane rolled. This could be called the first passive RFID system in the history. Later on, Sir Watson-Watt came up with first active system, so called identify friend system. Brits put an active transmitter on each airplane and when it received signals from the radars on the ground, it started broadcasting a signal back, identifying the airplane as friendly. \cite{violino2005history} Over the decades, significant advancements appeared in the technology. The first RFID tag was introduced in 1970s. 
+Many security systems heavily rely on RFID/NFC technologies for access control, authentication, or asset protection. The access systems that are commonly found in office buildings, hotels, or even houses, use RFID technology to grant or restrict entry based on authorized credentials. Asset tracking solutions use RFID tags to monitor the location or movement of valuable assets, reducing the risk of a theft.
+
+In conclusion, the significance of RFID/NFC technologies extends into various industries, from retail and logistics to healthcare and transportation. RFID/NFC technologies play an important role as components of security systems, in ensuring the confidentiality and integrity of data, while also improving convenience and efficiency for users worldwide.
 
 
 \section{Problem statement}
@@ -38,81 +40,81 @@ Provides a brief overview of the subsequent chapters
 \
 % \lipsum[6-7]
 
-\begin{figure}
-\centering
-%\includegraphics[scale=0.4]{pic/index}
-\resizebox{\textwidth}{!}{
-\begin{tikzpicture}[level/.style={sibling distance=60mm/#1}]
-\node [circle,draw] (z){$n$}
-  child {node [circle,draw] (a) {$\frac{n}{2}$}
-    child {node [circle,draw] (b) {$\frac{n}{2^2}$}
-      child {node {$\vdots$}
-        child {node [circle,draw] (d) {$\frac{n}{2^k}$}}
-        child {node [circle,draw] (e) {$\frac{n}{2^k}$}}
-      } 
-      child {node {$\vdots$}}
-    }
-    child {node [circle,draw] (g) {$\frac{n}{2^2}$}
-      child {node {$\vdots$}}
-      child {node {$\vdots$}}
-    }
-  }
-  child {node [circle,draw] (j) {$\frac{n}{2}$}
-    child {node [circle,draw] (k) {$\frac{n}{2^2}$}
-      child {node {$\vdots$}}
-      child {node {$\vdots$}}
-    }
-  child {node [circle,draw] (l) {$\frac{n}{2^2}$}
-    child {node {$\vdots$}}
-    child {node (c){$\vdots$}
-      child {node [circle,draw] (o) {$\frac{n}{2^k}$}}
-      child {node [circle,draw] (p) {$\frac{n}{2^k}$}
-        child [grow=right] {node (q) {$=$} edge from parent[draw=none]
-          child [grow=right] {node (q) {$O_{k = \lg n}(n)$} edge from parent[draw=none]
-            child [grow=up] {node (r) {$\vdots$} edge from parent[draw=none]
-              child [grow=up] {node (s) {$O_2(n)$} edge from parent[draw=none]
-                child [grow=up] {node (t) {$O_1(n)$} edge from parent[draw=none]
-                  child [grow=up] {node (u) {$O_0(n)$} edge from parent[draw=none]}
-                }
-              }
-            }
-            child [grow=down] {node (v) {$O(n \cdot \lg n)$}edge from parent[draw=none]}
-          }
-        }
-      }
-    }
-  }
-};
-\path (a) -- (j) node [midway] {+};
-\path (b) -- (g) node [midway] {+};
-\path (k) -- (l) node [midway] {+};
-\path (k) -- (g) node [midway] {+};
-\path (d) -- (e) node [midway] {+};
-\path (o) -- (p) node [midway] {+};
-\path (o) -- (e) node (x) [midway] {$\cdots$}
-  child [grow=down] {
-    node (y) {$O\left(\displaystyle\sum_{i = 0}^k 2^i \cdot \frac{n}{2^i}\right)$}
-    edge from parent[draw=none]
-  };
-\path (q) -- (r) node [midway] {+};
-\path (s) -- (r) node [midway] {+};
-\path (s) -- (t) node [midway] {+};
-\path (s) -- (l) node [midway] {=};
-\path (t) -- (u) node [midway] {+};
-\path (z) -- (u) node [midway] {=};
-\path (j) -- (t) node [midway] {=};
-\path (y) -- (x) node [midway] {$\Downarrow$};
-\path (v) -- (y)
-  node (w) [midway] {$O\left(\displaystyle\sum_{i = 0}^k n\right) = O(k \cdot n)$};
-\path (q) -- (v) node [midway] {=};
-\path (e) -- (x) node [midway] {+};
-\path (o) -- (x) node [midway] {+};
-\path (y) -- (w) node [midway] {$=$};
-\path (v) -- (w) node [midway] {$\Leftrightarrow$};
-\path (r) -- (c) node [midway] {$\cdots$};
-\end{tikzpicture}}
-\caption{~Lorem ipsum dolor sit amet}\label{img:index}
-\end{figure}
+% \begin{figure}
+% \centering
+% %\includegraphics[scale=0.4]{pic/index}
+% \resizebox{\textwidth}{!}{
+% \begin{tikzpicture}[level/.style={sibling distance=60mm/#1}]
+% \node [circle,draw] (z){$n$}
+%   child {node [circle,draw] (a) {$\frac{n}{2}$}
+%     child {node [circle,draw] (b) {$\frac{n}{2^2}$}
+%       child {node {$\vdots$}
+%         child {node [circle,draw] (d) {$\frac{n}{2^k}$}}
+%         child {node [circle,draw] (e) {$\frac{n}{2^k}$}}
+%       } 
+%       child {node {$\vdots$}}
+%     }
+%     child {node [circle,draw] (g) {$\frac{n}{2^2}$}
+%       child {node {$\vdots$}}
+%       child {node {$\vdots$}}
+%     }
+%   }
+%   child {node [circle,draw] (j) {$\frac{n}{2}$}
+%     child {node [circle,draw] (k) {$\frac{n}{2^2}$}
+%       child {node {$\vdots$}}
+%       child {node {$\vdots$}}
+%     }
+%   child {node [circle,draw] (l) {$\frac{n}{2^2}$}
+%     child {node {$\vdots$}}
+%     child {node (c){$\vdots$}
+%       child {node [circle,draw] (o) {$\frac{n}{2^k}$}}
+%       child {node [circle,draw] (p) {$\frac{n}{2^k}$}
+%         child [grow=right] {node (q) {$=$} edge from parent[draw=none]
+%           child [grow=right] {node (q) {$O_{k = \lg n}(n)$} edge from parent[draw=none]
+%             child [grow=up] {node (r) {$\vdots$} edge from parent[draw=none]
+%               child [grow=up] {node (s) {$O_2(n)$} edge from parent[draw=none]
+%                 child [grow=up] {node (t) {$O_1(n)$} edge from parent[draw=none]
+%                   child [grow=up] {node (u) {$O_0(n)$} edge from parent[draw=none]}
+%                 }
+%               }
+%             }
+%             child [grow=down] {node (v) {$O(n \cdot \lg n)$}edge from parent[draw=none]}
+%           }
+%         }
+%       }
+%     }
+%   }
+% };
+% \path (a) -- (j) node [midway] {+};
+% \path (b) -- (g) node [midway] {+};
+% \path (k) -- (l) node [midway] {+};
+% \path (k) -- (g) node [midway] {+};
+% \path (d) -- (e) node [midway] {+};
+% \path (o) -- (p) node [midway] {+};
+% \path (o) -- (e) node (x) [midway] {$\cdots$}
+%   child [grow=down] {
+%     node (y) {$O\left(\displaystyle\sum_{i = 0}^k 2^i \cdot \frac{n}{2^i}\right)$}
+%     edge from parent[draw=none]
+%   };
+% \path (q) -- (r) node [midway] {+};
+% \path (s) -- (r) node [midway] {+};
+% \path (s) -- (t) node [midway] {+};
+% \path (s) -- (l) node [midway] {=};
+% \path (t) -- (u) node [midway] {+};
+% \path (z) -- (u) node [midway] {=};
+% \path (j) -- (t) node [midway] {=};
+% \path (y) -- (x) node [midway] {$\Downarrow$};
+% \path (v) -- (y)
+%   node (w) [midway] {$O\left(\displaystyle\sum_{i = 0}^k n\right) = O(k \cdot n)$};
+% \path (q) -- (v) node [midway] {=};
+% \path (e) -- (x) node [midway] {+};
+% \path (o) -- (x) node [midway] {+};
+% \path (y) -- (w) node [midway] {$=$};
+% \path (v) -- (w) node [midway] {$\Leftrightarrow$};
+% \path (r) -- (c) node [midway] {$\cdots$};
+% \end{tikzpicture}}
+% \caption{~Lorem ipsum dolor sit amet}\label{img:index}
+% \end{figure}
 
 %---------------------------------------------------------------
 \section{Ut enim ad minim veniam}
