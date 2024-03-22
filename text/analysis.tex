@@ -1,0 +1,66 @@
+\chapter{Analysis}
+
+This chapter presents an analysis of the existing hardware. It outlines the capabilities of existing RFID/NFC readers, cloners, emulators, microcomputers, and other relevant hardware components. Specifically focusing on readers, it compares the devices based on various parameters, including compatibility with certain tag types, limitations, and pricing. Additionally, other hardware components are evaluated based on their capabilities and compatibility with RFID readers. The objective is to determine the most suitable device for integration into the portable device developed in this thesis, meeting the specified requirements effectively.
+
+
+\section{Requirements}
+\label{sec:requirements}
+
+This section sets the requirements for the portable cloning device. It describes the requirements of the RFID/NFC reader, microcomputer, and its components.  
+
+\subsection{RFID/NFC reader requirements}
+
+As written in Chapter~\ref{chap:theory}, there are types of tags that are easy to clone or emulate, as their main aim is to provide availability rather than integrity or confidentiality of data. In other words, some types of tags do not prioritize providing security measures. For instance, a simple 125 kHz EM410x tag holds data that can be easily read without any constraints and can be cloned or emulated quite effortlessly. Certain tags are designed to provide users with security but have failed in secure implementation. For example, their encryption algorithm has been reverse-engineered, and a variety of attacks have been published, effectively compromising their security\footnote{A perfect example of such tags are those using the encryption algorithm Crypto-1}. These tags are a little more complicated to clone, as some type of attack must be executed against the tag, exploiting its vulnerabilities. Lastly, there are tags for which no vulnerabilities or published attacks are known.
+
+It would be beneficial to utilize an open-source reader capable of reading, writing, emulating tags, and exploiting the known vulnerabilities of some of the tags all by itself. This would help to narrow the scope of the thesis, as otherwise, the work would be very extensive.
+
+\subsection{Microcomputer requirements}
+
+There are various requirements for the microcomputer. One of the most crucial aspects when searching for a suitable microcomputer is its ability to communicate with the chosen reader effectively. The communication should be implementable using the chosen programming language, with minimal limitations. Another critical parameter is the ability to control the microcomputer. Most certainly, there should be a way to connect a small screen to the device. The device should be controlled via a touchscreen or connected buttons.
+
+
+\section{Existing RFID/NFC cloners}
+
+This section covers various existing solutions, and devices capable of cloning or emulating tags. It will provide a general overview of their capabilities and prices, and potential limitations.
+
+\subsection{Flipper Zero}
+
+The Flipper Zero is one of the most well-known gadgets. Among its capabilities, such as emulating a BadUSB device\footnote{A so-called BadUSB device is a device that is recognized by computers as a human interface device, such as a keyboard~\cite{badusb}.} or controlling devices that utilize radio signals below 1 GHz, it can also operate at frequencies of 125 kHz and 13.56 MHz for RFID tags~\cite{flipper}. It offers a highly portable solution for reading, writing, cloning, and emulating tags, supporting various types, such as MIFARE Classic 1k or MIFARE Ultralight~\cite{flipperreading}.  Its software is licensed under GPL-3.0, making it fully modifiable and distributable under the same license~\cite{githubflipper}.
+
+The device is powered by an integrated lithium-ion polymer rechargeable battery, with power management efficiently handled to provide operation for up to a month without recharging.~\cite{flipperpower}
+
+However, a notable drawback is the price. The device is available for purchase on the official website for 165 euros~\cite{flippershop}. Although this price may seem high, it is essential to consider that the device offers significantly more functionalities than those outlined in Section~\ref{sec:requirements}.
+
+
+\subsection{ChameleonMini}
+
+The ChameleonMini is a versatile credit-card shaped RFID and NFC tool, often used for security compliance, analysis, penetration testing, and various applications. Its fully open-source platform supports emulating perfect clones of various commercial smartcards, including the UID and even cryptographic functions. Its human-readable command set provides users the ability to configure settings and content for up to 8 internally stored virtual cards. Integrated buttons and LEDs enable user interaction while in standalone mode, meaning when the device is not connected to the computer.~\cite{chameleonwiki}
+
+Despite its capability to emulate various types of cards, its firmware does not provide the ability to write cards.~\cite{lab401chameleon}
+
+Its battery life is quite extensive, it contains a Li-ion battery which is capable of running the device for up to 1 year with an average usage of 15 seconds a day.~\cite{lab401chameleon}
+
+This powerful and highly modifiable device supports the emulation of cards of various types, however, its software cannot write cards.
+
+
+\subsection{PN532 module}
+
+The PN532 is a highly integrated module operating at 13.56 MHz frequencies. It supports 6 different operating modes,
+\begin{itemize}
+    \item ISO/IEC 14443A/MIFARE Reader/Writer,
+    \item FeliCa Reader/Writer,
+    \item ISO/IEC 14443B Reader/Writer,
+    \item ISO/IEC 14443A/MIFARE Card MIFARE Classic 1K or MIFARE Classic 4K card emulation mode,
+    \item FeliCa Card emulation and
+    \item ISO/IEC 18092, ECMA 340 Peer-to-Peer.~\cite{pn532doc}
+\end{itemize}
+
+It can be classified as an affordable device, a man can buy this device for only around 10 euros.~\cite{pn532shop}
+
+This device can be controlled via Arduino microcontroller, however, its downside is the restriction to 13.56 MHz frequencies.
+
+
+\subsection{Proxmark}
+
+The Proxmark is an RFID tool, supporting vast majority of RFID tags worldwide. It allows both low level and high level interactions with the technology.  
+
