@@ -50,10 +50,10 @@
 \ctufityear{2024} % replace with the year of your defence
 \ctufitdeclarationplace{Prague} % replace with the place where you sign the declaration
 \ctufitdeclarationdate{\today} % replace with the date of signature of the declaration
-\ctufitabstractCZE{Tato práce je zaměřena na problematiku bezpečnosti RFID a NFC čipů a karet v infrastruktuře.}
-\ctufitabstractENG{Fill in abstract of this thesis in English language. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Sed vel lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, sem. Suspendisse sagittis ultrices augue.}
-\ctufitkeywordsCZE{enter, commma, separated, list, of, keywords, in, CZECH}
-\ctufitkeywordsENG{enter, commma, separated, list, of, keywords, in, ENGLISH}
+\ctufitabstractCZE{Tato práce je zaměřena na problematiku bezpečnosti RFID a NFC tagů a karet v infrastruktuře. Cílem práce je návrh a implementace přenosného a rozšířitelného open-source zařízení, které bude schopné některé vybrané typy RFID karet a tagů klonovat a emulovat za použití vybraného běžně dostupného mikropočítače. Práce je spojena i s vývojem softwaru s grafickým prostředím, který umožňuje potřebné schopnosti zařízení. V teoretické části práce se vysvětlují základní principy fungování technologie RFID, její zabezpečení a nedostatky. Dále probíhá analýza existujících řešení, které se používají pro klonování a emulaci RFID technologií, a výběr vhodného hardwaru pro vytvoření výsledného zařízení. Praktická část práce se zabývá návrhem a samotnou implementací daného zařízení z hardwarové i softwarové stránky. Nakonec je ověřena funkčnost zařízení testováním množinou rozdílných RFID karet a tagů.}
+\ctufitabstractENG{This work focuses on the security of RFID and NFC tags and cards in infrastructure. The aim of the work is to design and implement a portable and extensible open-source device that will be able to clone and emulate some selected types of RFID cards and tags using a selected commercially available microcomputer. The work also involves the development of software with a graphical environment that enables the necessary capabilities of the device. The theoretical part of the thesis explains the basic principles of RFID technology, its security and shortcomings. Furthermore, an analysis of existing solutions that are used for cloning and emulation of RFID technology and the selection of suitable hardware for the creation of the resulting device are discussed. The practical part of the thesis deals with the design and actual implementation of the device from both hardware and software aspects. Finally, the functionality of the device is verified by testing a set of different RFID cards and tags.}
+\ctufitkeywordsCZE{RFID, NFC, klonování, emulace, bezpečnost informací, Proxmark, Python, Raspberry Pi}
+\ctufitkeywordsENG{RFID, NFC, cloning, emulation, information security, Proxmark, Python, Raspberry Pi}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % END FILL IN
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -98,6 +98,11 @@
 \usepackage[style=iso-numeric]{biblatex}
 \addbibresource{text/bib-database.bib}
 \usepackage{listings} % typesetting of sources
+% My packages:
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{graphicx}
+\usepackage{subcaption}
 %\usepackage[newfloat]{minted}\captionsetup[listing]{position=top} % typesetting of sources
 
 %theorems, definitions, etc.
@@ -123,7 +128,7 @@
 \begin{document} 
 \frontmatter\frontmatterinit % do not remove these two commands
 
-\includepdf[pages={1-}]{benesm41-assignment.pdf} % replace that file with your thesis assignment provided by study office
+\includepdf[pages={1}]{benesm41-assignment-en.pdf} % replace that file with your thesis assignment provided by study office
 
 \thispagestyle{empty}\cleardoublepage\maketitle % do not remove these three commands
 
@@ -151,7 +156,7 @@
 % This is a place to thank people for helping you. It is common to thank your supervisor.
 %%%%%%%%%%%%%%%%%%%
 \begin{acknowledgmentpage}
-	I would like to express my highest gratitude to Mr. Jan Fesl for his guidance as my supervisor, to school 3D laboratory for letting me use the 3D printer and especially to my family and friends for their support.
+	I would like to express my highest gratitude to Mr. Jan Fesl for his guidance as my supervisor, to Mr. Tomáš Přeučil for loaning me required hardware and answering my questions, and especially to my family and friends for their support.
 \end{acknowledgmentpage} 
 %%%%%%%%%%%%%%%%%%%
 % ACKNOWLEDGMENT END
@@ -166,9 +171,13 @@
 % ENG: choose one of approved texts of the declaration. DO NOT CREATE YOUR OWN. Find the approved texts at https://courses.fit.cvut.cz/SFE/download/index.html#_documents (document Declaration for FT in English)
 % CZE/SLO: Vyberte jedno z fakultou schvalenych prohlaseni. NEVKLADEJTE VLASTNI TEXT. Schvalena prohlaseni najdete zde: https://courses.fit.cvut.cz/SZZ/dokumenty/index.html#_dokumenty (prohlášení do ZP)
 \begin{declarationpage}
-FILL IN ACCORDING TO THE INSTRUCTIONS. VYPLŇTE V SOULADU S POKYNY. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sagittis hendrerit ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Sed vel lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, sem. Suspendisse sagittis ultrices augue. Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est. In sem justo, commodo ut, suscipit at, pharetra vitae, orci. Pellentesque pretium lectus id turpis.
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sagittis hendrerit ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Sed vel lectus. Donec odio tempus molestie, porttitor ut, iaculis quis, sem. Suspendisse sagittis ultrices augue. Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est. In sem justo, commodo ut, suscipit at, pharetra vitae, orci. Pellentesque pretium lectus id turpis.
+I hereby declare that the presented thesis is my own work and that I have cited all sources of
+information in accordance with the Guideline for adhering to ethical principles when elaborating an
+academic final thesis.
+I acknowledge that my thesis is subject to the rights and obligations stipulated by the Act No.
+121/2000 Coll., the Copyright Act, as amended, in particular the fact that the Czech Technical
+University in Prague has the right to conclude a licence agreement on the utilization of this thesis as
+a school work pursuant of Section 60 (1) of the Act.
 \end{declarationpage}
 %%%%%%%%%%%%%%%%%%%
 % DECLARATION END
@@ -176,36 +185,6 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sagittis hen
 
 \printabstractpage % do not remove this command
 
-%%%%%%%%%%%%%%%%%%%
-% SUMMARY
-% FILL IN / MODIFY
-% OR REMOVE ENTIRELY (upon agreement with your supervisor)
-% (appropriate to remove in most theses)
-%%%%%%%%%%%%%%%%%%%
-\begin{summarypage}
-\section*{Summary section}
-
-\lipsum[1][1-8]
-
-\section*{Summary section}
-
-\lipsum[2][1-6]
-
-\section*{Summary section}
-
-\lipsum[3]
-
-\section*{Summary section}
-
-\lipsum[2]
-
-\section*{Summary section}
-
-\lipsum[1][1-8] Lorem lorem lorem.
-\end{summarypage}
-%%%%%%%%%%%%%%%%%%%
-% SUMMARY END
-%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%
 % ABBREVIATIONS
@@ -216,9 +195,14 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur sagittis hen
 \chapter{List of abbreviations}
 	
 \begin{tabular}{rl}
-RFID & Radio Frequency Identification\\
+BS & Base-Station\\
+GUI & Graphical User Interface\\
+HF & High Frequency\\
+LF & Low Frequency\\
 NFC & Near Field Communication\\
-UID & Unique Identifier
+UID & Unique Identifier\\
+UI & User Interface\\
+RFID & Radio Frequency Identification\\
 \end{tabular}
 %%%%%%%%%%%%%%%%%%%
 % ABBREVIATIONS END
@@ -235,7 +219,7 @@ UID & Unique Identifier
 
 \appendix\appendixinit % do not remove these two commands
 
-\include{text/appendix} % include `appendix.tex' from `text/' subdirectory
+% \include{text/appendix} % include `appendix.tex' from `text/' subdirectory
 
 \backmatter % do not remove this command
 

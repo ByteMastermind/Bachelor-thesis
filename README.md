@@ -4,6 +4,10 @@ https://www.scitepress.org/PublishedPapers/2015/52297/52297.pdf
 
 https://link.springer.com/article/10.1007/s10796-009-9210-z
 
+# TO DO
+
+NFC vs RFID 
+
 # Card types definitions
 
 ## EM410x
@@ -27,4 +31,12 @@ Pro cj:
 
 # To ask:
 
-- citation of a footnote
+- switched citation of footnote and in text
+
+
+GOOD PRESENTATION FOR ATTACKS
+https://smartlockpicking.com/slides/HiP19_Cracking_Mifare_Classic_on_the_cheap_workshop.pdf
+
+https://robinplantey.github.io/projects/rfid/
+
+https://dspace.cvut.cz/bitstream/handle/10467/83129/F8-BP-2019-Havranek-Jan-thesis.pdf?sequence=-1&isAllowed=y
