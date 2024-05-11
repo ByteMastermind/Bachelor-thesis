@@ -1,10 +1,10 @@
 \chapter{Implementation}
 
-This chapter will describe the process of implementing the device --- the commissioning and modification of the computer operating system, the installation of the necessary software and the actual implementation of the program. Any changes to the design of the device will be mentioned.
+This chapter will describe the process of implementing the device --- the commissioning and modification of the computer operating system, the installation of the necessary software and the actual implementation of the program. Any changes to the design of the device will be discussed.
 
 \section{Installing the Operating System}
 
-As mentioned in the design chapter, the appropriate operating system for the Raspberry Pi is Rasperry Pi OS Bullseye 32 bit, partly because of its compatibility with the touchscreen used. The installation is straightforward, using the Rasperry Pi Imager to install the selected system version on the SD card. A Kingston 32 GB SD card was used, where 8 GB would also be sufficient. To get the device working, it is also necessary to provide an internet connection to download the necessary packages, so the device was connected to WiFi. Also, ssh needs to be set up so that the device can be configured remotely when the touchscreen is not yet in use. It should be noted that the system user name must be left \texttt{pi}, otherwise the touchscreen driver installation script does not work correctly. The error is caused by using an absolute path with the user name \texttt{pi} in the installation script, and therefore with a user of a different name the script does not work as it should.   
+As mentioned in the design chapter, the appropriate operating system for the Raspberry Pi is Raspberry Pi OS Bullseye 32 bit, partly because of its compatibility with the touchscreen used. The installation is straightforward, using the Raspberry Pi Imager to install the selected system version on the SD card. A Kingston 32 GB SD card was used, although 8 GB would also be sufficient. To get the device working, it is also necessary to provide an internet connection to download the necessary packages, so the device was connected to WiFi. Also, ssh needs to be set up so that the device can be configured remotely when the touchscreen is not yet in use. It should be noted that the system user name must be left \texttt{pi}, otherwise the touchscreen driver installation script does not work correctly. The error is caused by using an absolute path with the user name \texttt{pi} in the installation script, and therefore with a user of a different name the script does not work as it should.   
 
 After successfully uploading the operating system to the SD card, the card was inserted into the device to test its functionality by booting and connecting from a remote computer on the same network.  
 
@@ -33,7 +33,7 @@ sudo apt install libreadline-dev gcc-arm-none-eabi libssl-dev cmake liblz4-dev l
 
 \section{Touch Screen Drivers Installation}
 
-After installing the necessary packages, it is necessary to install the driver for the Waveshare LCD 35B-V2 touch screen. The tutorial given in~\cite{waveshare35inch} has been verified. Additionally, in Code listing~\ref{code:driver}, the script for installing that driver is given.
+After installing the necessary packages, it is necessary to install the driver for the Waveshare LCD 35B-V2 touch screen. This has been performed according to the tutorial in~\cite{waveshare35inch}. Additionally, in Code listing~\ref{code:driver}, the script for installing that driver is provided.
 
 \begin{lstlisting}[
   caption={~Installing the touchscreen driver.},
@@ -57,7 +57,7 @@ chmod +x LCD35B-show-V2
 
 \section{Proxmark Software Installation}
 
-This repository on Github~\cite{githubproxmark} will be used for Proxmark software installation. The Iceman Fork is a very well maintained repository with software for Proxmark devices. It contains a client, but also scripts to flash the Proxmark itself.
+The Iceman Fork is a very well maintained repository with software for Proxmark devices. This repository on Github~\cite{githubproxmark} will be used for Proxmark software installation.  It contains a client, but also scripts to flash the Proxmark itself.
 
 Using the installation procedure given in~\cite{githubproxmarkdoc}, the software can be installed without any problem. It should be mentioned that before starting the compilation, it is necessary to change the platform in the \texttt{Makefile.platform} configuration file to \texttt{PM3GENERIC}, for which the program will be compiled. It is also necessary to pay attention to the ModemManager, which could damage the device.
 
@@ -75,9 +75,9 @@ The following steps are provided to improve the appearance of the software itsel
     \item disabling all unused features such as WiFi or Bluetooth (not done at first for testing purposes).
 \end{itemize}
 
-To remove the cursor, just modify the \texttt{/etc/lightdm/lightdm.conf} file, where you only need to change the line \texttt{xserver-command} to \texttt{xserver-command = X -nocursor}. The cursor is gone but the touch screen control works as it should.
+To remove the cursor, the \texttt{/etc/lightdm/lightdm.conf} file needs to be modified, changing \texttt{xserver-command} to \texttt{xserver-command = X -nocursor}. As a result, the cursor is no lonoger visible but the touch screen control works as it should.
 
-Executing the program automatically when the system starts is done by putting a desktop file in the \texttt{\textasciitilde{}/.config/autostart} folder.
+Executing the program automatically upon start is done by putting a desktop file in the \texttt{\textasciitilde{}/.config/autostart} folder.
 
 
 \section{Program Implementation}
@@ -88,8 +88,14 @@ This section will explain the principle and description of implementation of the
 
 The implementation followed the design outlined in Chapter~\ref{chap:design}. This means that the \texttt{PyQt5} library allowed for a great layout of individual screens. Thus, each class representing a screen also has a \texttt{QStackWidget} class variable that holds the individual sub-screens.
 
-The implementation also made great use of class inheritance, where, for example, the screens already mentioned all inherit from one base class called \texttt{BaseScreen}. Class inheritance was also used in other cases such as buttons or toasts.
+The program's basic architecture of is depicted in a simplified class diagram in Figure~\ref{fig:classdiagram}. The main class, \texttt{MainWindow}, represents the program window. Then, there are different screens like \texttt{MainScreen}, which contain more screens or other parts of the interface. The implementation also made a great use of class inheritance, where, for example, all screens inherit from one abstract class called \texttt{BaseScreen}. Class inheritance was also used in other cases such as buttons or notification toasts\footnote{A notification toast is a brief, non-interactive alert message that appears temporarily on a mobile device or computer screen, typically in a corner or at the top of the screen.}. This made it easy to create a simple menu in the program. The command execution was implemented as planned in Chapter~\ref{chap:design}.
 
+\begin{figure}[hp]
+  \centering
+  \includegraphics[width=\textwidth]{text/implementation/uml_class_diagram.pdf}
+  \caption{~Simplified class diagram describing the GUI part of the software.}
+  \label{fig:classdiagram}
+\end{figure}
 
 \subsection{Communication With Proxmark}
 
@@ -128,11 +134,14 @@ The \texttt{CommandExecutor} class receives individual commands from the \texttt
 process = subprocess.run(command, shell=True, capture_output=True, text=True)
 \end{lstlisting}
 
-Then the output of the executed command is passed to the \texttt{OutputHandler} class, which extracts important information from the output depending on the command, e.g. the success rate of execution or some other information like the UID of the tag. This information is then passed to the AI itself, which displays it in some form to the user.
+Then the output of the executed command is passed to the \texttt{OutputHandler} class, which extracts important information from the output depending on the command, e.g. the success rate of execution or some other information like the UID of the tag. This information is then passed to the UI itself. Before each command is executed, the connection of Proxmark 3 Easy to Raspberry Pi is checked. This is done to determine in case of failure exactly why the command was not executed. A simple activity diagram depicting the process of reading and saving a tag information can be seen in Figure~\ref{fig:activitydiagram}.
 
-\subsubsection{Proxmark Availability Check}
-
-Before each command is executed, it is first checked whether the Proxmark 3 Easy is connected to the Raspberry Pi. This is done to determine in case of failure exactly why the command was not executed.
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{text/implementation/activity_diagram.pdf}
+  \caption{~Simplified activity diagram for reading and saving tag information.}
+  \label{fig:activitydiagram}
+\end{figure}
 
 \subsection{Graphic User Interface}
 
@@ -142,21 +151,21 @@ The creation of the GUI followed the design presented in the Chapter~\ref{chap:d
     \centering
     \begin{minipage}[b]{0.315\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{text/ui1.png}
+        \includegraphics[width=\textwidth]{text/implementation/ui1.png}
         \caption{~Resulting GUI 1.}
         \label{fig:ui1}
     \end{minipage}
     \hfill
     \begin{minipage}[b]{0.315\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{text/ui2.png}
+        \includegraphics[width=\textwidth]{text/implementation/ui2.png}
         \caption{~Resulting GUI 2.}
         \label{fig:ui2}
     \end{minipage}
     \hfill
     \begin{minipage}[b]{0.315\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{text/ui3.png}
+        \includegraphics[width=\textwidth]{text/implementation/ui3.png}
         \caption{~Resulting GUI 3.}
         \label{fig:ui3}
     \end{minipage}
@@ -168,7 +177,7 @@ For a better and more intuitive feeling of use, graphical elements had to be imp
 
 One of these elements was the blocking of buttons that for some reason should not yet be pressable, e.g. when UIDs are not entered when changing UIDs.
 
-For better feedback to the user, toasts were used as a method of user notification. The existing \texttt{pyqt-toast} package available here~\cite{toast} was used. The package license is included in the attachment.
+For better feedback to the user, notification toasts were used as a method of user notification. The existing \texttt{pyqt-toast} package available here~\cite{toast} was used. The package license is included in the attachment.
 
 
 \subsection{User Input}
@@ -177,7 +186,7 @@ For input purposes, a custom keyboard containing only the characters 0--9 and A-
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=6cm]{text/keyboard.png}
+  \includegraphics[width=6cm]{text/implementation/keyboard.png}
   \caption{~Screenshot of the created keyboard.}
   \label{fig:keyboard}
 \end{figure}
@@ -187,7 +196,7 @@ For input purposes, a custom keyboard containing only the characters 0--9 and A-
 
 After each command is executed, its output is processed. Since almost every command has different outputs, it was necessary to test all situations, how each command reacts for example to incorrect input or in what form important information appears in the text. 
 
-This is handled by the already mentioned \texttt{OutputHandler} class. An example of how the handling of the output of one of the commands, specifically the \texttt{hf mf autopwn} command, is handled can be seen in Code Listing A. The outputs of other commands were handled in a similar way --- that is, always looking for a particular string in the output. The extraction of other information, here specifically file names from the output, can also be seen in the sample.
+This is handled by the aforementioned \texttt{OutputHandler} class. An example of how the handling of the output of one of the commands, specifically the \texttt{hf mf autopwn} command, is handled can be seen in Code Listing A. The outputs of other commands were handled in a similar way --- that is, always looking for a particular string in the output. The extraction of other information, here specifically file names from the output, can also be seen in the sample.
 
 \begin{lstlisting}[
   caption={~Processing output of a command in Python.},
