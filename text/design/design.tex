@@ -82,7 +82,7 @@ Manual editing of UIDs will require some sort of on-screen keyboard where the us
 
 \subsubsection{Architecture}
 
-The PyQt5 library offers a relatively simple way to manage individual screens. The \texttt{QStackedWidget} class will allow holding individual widgets\footnote{Widget is the class representing the screen for us at the moment}. Inside the widget, the screen layout can be arranged in a simple way by aligning or applying individual styles. Each screen, i.e. widget, will hold its sub-screens (submenus). This hierarchy allows for easy navigation through the code.
+The PyQt5 library offers a relatively simple way to manage individual screens. A class named \texttt{QStackedWidget} will allow holding individual widgets\footnote{Widget is the class representing the screen for us at the moment}. Inside the widget, the screen layout can be arranged in a simple way by aligning or applying individual styles. Each screen, i.e. widget, will hold its sub-screens (submenus). This hierarchy allows for easy navigation through the code.
 
 Next, a class called \texttt{CommandExecutor} needs to be created to take care of executing individual operations on the Proxmark.
 
