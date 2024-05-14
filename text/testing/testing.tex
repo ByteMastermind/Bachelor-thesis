@@ -50,10 +50,10 @@ For testing purposes, tags of different types were taken, mostly magic tags. Mos
             \item Mifare Classic 1k, 4-byte UID
             \item Mifare Classic 1k, 7-byte UID
         \end{itemize}
-        \item Legic Prime
         \item Mifare Ultralight EV1, non-magic tag
         \item Mifare Ultralight EV1, GEN-2 magic tags
         \item Mifare Desfire, generation 1, 2 or 3
+        \item Legic Prime
     \end{itemize}
 \end{itemize}
 Some of these named tags are used for some purpose such as building entrances.
@@ -189,9 +189,11 @@ Testing was therefore conducted again with the second Proxmark as the reader tha
 \subsubsection{Real-World Example}
 To test the Mifare DESfire tag emulation, I had two tags used to access an unnamed organization and an unnamed school building --- this tag is used, among other things, to pay for lunches in the school cafeteria and to enter the dormitory. 
 
-For the unnamed organization, simply emulating the 7 byte UID DESFire tag was not enough --- access to the building was not granted. Conversely, for the unnamed school's building entrance, emulation of the UID tag alone passed, for the main entrance and for entrances to individual classrooms within the building, even for entry to the dorm areas. Payment using the emulated tag in the student cafeteria was not tested.
+For the unnamed organization, simply emulating the 7 byte UID DESFire tag was not enough --- access to the building was not granted. Conversely, for the unnamed school's building entrance, emulation of the UID tag alone passed, for the main entrance and for entrances to individual classrooms within the building, even for entry to the dorm areas. Payment using the emulated tag in the student cafeteria was not tested. 
 
-For testing, a given 7 byte UID of the school DESFire tag was written to a 7 byte Mifare Classic 4k tag. With this newly created Mifare Classic tag, access was only granted in the school building and not in the dormitory areas. This is because some of the readers are also checking the type of the tag --- ATQA and SAK values, which were in this case different. However, they were correctly emulated by the device before, that explains the granted access to the emulated DESFire tag.
+However, it is important to mention that the RFID reader by the entrance to the school dormitory could only be fooled by emulating exactly Mifare DESFire type. Some of the readers inside of the school building could be fooled only by emulating the card of type Mifare Classic, the emulation of Mifare DESFire was not successful there. 
+
+For testing, a given 7 byte UID of the school DESFire tag was written to a 7 byte Mifare Classic 4k tag. With this newly created Mifare Classic tag, access was only granted in the school building and not in the dormitory areas. This is probably because some of the readers are also checking the type of the tag --- ATQA and SAK values, which were in this case different. However, they were correctly emulated by the device before, that explains the granted access to the school dormitory for the emulated DESFire tag.
 
 \subsection{Legic Prime}
 
