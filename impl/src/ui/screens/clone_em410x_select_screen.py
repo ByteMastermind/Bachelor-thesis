@@ -1,0 +1,68 @@
+import logging
+
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import (QScrollArea, QSizePolicy, QSpacerItem,
+                             QVBoxLayout, QWidget)
+
+import constants
+
+from ..buttons import CustomButton
+from ..description import Description
+from ..toast import InfoToast
+from .base_screen import BaseScreen
+
+
+class CloneEM410XSelectScreen(BaseScreen):
+    def __init__(self, command_builder, logger, stacked_widget, file_handler, parent=None):
+        super().__init__(command_builder, logger, stacked_widget, file_handler, parent)
+
+        # Init of toasts
+        self.add_toast("success", InfoToast(text="ID successfully set.", duration=1.5, parent=self.stacked_widget))
+
+    def setup_content(self):
+        self.description_label = Description("Select EM410x card:")
+        self.scroll_area = QScrollArea()
+        self.scroll_area.setWidgetResizable(True)
+        self.button_layout = QVBoxLayout()
+
+        self.scroll_area.setWidget(QWidget())
+        self.scroll_area.widget().setLayout(self.button_layout)
+        self.back_button = CustomButton("⬅️ Back", lambda: self.switch_to_screen(self.parent_screen))
+
+        self.layout.addWidget(self.description_label)
+        self.layout.addWidget(self.scroll_area)
+        self.layout.addWidget(self.back_button, alignment=Qt.AlignBottom)
+
+    def refresh(self):
+        self.clear_layout(self.button_layout)
+        self.load_from_files()
+        self.logger.log(f"Updated the {constants.EM410X} files list.", level=logging.INFO)
+
+    def load_from_files(self):
+        self.cards = self.file_handler.get_card_ids_and_dates(constants.EM410X)
+        sorted_cards = sorted(self.cards, key=lambda x: x[1], reverse=True)
+        self.cards = sorted_cards
+        self.buttons = []
+        for tup in self.cards:
+            id_, datetime_ = tup
+            self.buttons.append(CustomButton(id_ + " from " + datetime_))
+            self.buttons[-1].clicked.connect(lambda _, new_id=id_: self.select_id(new_id))
+
+        for button in self.buttons:
+            self.button_layout.addWidget(button)
+
+        # Add a stretchable spacer item to push buttons to the top
+        self.spacer_item = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.button_layout.addItem(self.spacer_item)
+
+    def clear_layout(self, layout):
+        while layout.count():
+            item = layout.takeAt(0)
+            widget = item.widget()
+            if widget:
+                widget.deleteLater()
+
+    def select_id(self, card_id):
+        self.parent_screen.set_card(card_id)
+        self.show_toast("success")
+        self.logger.log(f"Selected {card_id} from {constants.EM410X} files list.", level=logging.INFO)

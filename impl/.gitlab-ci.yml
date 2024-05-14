@@ -1,0 +1,11 @@
+# .gitlab-ci.yml
+
+stages:
+  - linting
+
+pylint:
+  stage: linting
+  image: python:latest
+  script:
+    - pip install pylint
+    - python -m pylint ./src --ignore=toast_lib

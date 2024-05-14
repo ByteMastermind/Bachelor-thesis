@@ -1,0 +1,11 @@
+# Example of a config file for tweaking parameters of the cloner program
+# Edit your preferences in the file in: ~/.cloner/config.txt
+
+[SCREEN]
+enable_fullscreen=1
+screen_width=480
+screen_height=320
+
+[DEFAULT]
+# Exiting program is also shutting down the host pc
+enable_shutdown=1
