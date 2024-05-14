@@ -2,7 +2,7 @@
 
 ## Features
 
-- **Bachelor Thesis Implementation**: Delve into the Python program developed for the bachelor thesis, located in the 'impl' directory.
+- **Bachelor Thesis Implementation**: Delve into the Python program developed for the bachelor thesis, located in the 'impl' directory. The thesis was done under [Faculty of Information Technology, CTU in Prague](https://fit.cvut.cz/cs).
 - **Comprehensive Documentation**: Access the complete text of the thesis in PDF format, along with the LaTeX source code available in the 'text' directory.
 
 
